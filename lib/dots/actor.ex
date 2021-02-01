@@ -15,9 +15,24 @@ defmodule Dots.Actor do
     y = :rand.uniform(600)
     hue = :rand.uniform(360)
 
-    pid = GenServer.whereis(Dots.Canvas)
-    Process.send(pid, {:dot, %Dot{x: x, y: y, hue: hue, pid: self()}}, [])
+    dot = %Dot{x: x, y: y, hue: hue, pid: self()}
 
-    {:ok, nil}
+    pid = GenServer.whereis(Dots.Canvas)
+    Process.send(pid, {:dot, dot}, [])
+
+    {:ok, dot}
+  end
+
+  def handle_info(:move, _old_dot) do
+    x = :rand.uniform(800)
+    y = :rand.uniform(600)
+    hue = :rand.uniform(360)
+
+    dot = %Dot{x: x, y: y, hue: hue, pid: self()}
+
+    pid = GenServer.whereis(Dots.Canvas)
+    Process.send(pid, {:dot, dot}, [])
+
+    {:noreply, dot}
   end
 end

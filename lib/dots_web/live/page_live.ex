@@ -20,6 +20,13 @@ defmodule DotsWeb.PageLive do
     {:noreply, socket}
   end
 
+  def handle_event("move", _values, socket) do
+    DynamicSupervisor.which_children(Dots.DotSupervisor)
+    |> Enum.each(fn {_id, pid, _type, _modules} -> Process.send(pid, :move, []) end)
+
+    {:noreply, socket}
+  end
+
   @impl true
   def handle_info({:dot, %Dot{} = dot}, socket) do
     {:noreply, assign(socket, dots: [dot])}

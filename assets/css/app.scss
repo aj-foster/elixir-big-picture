@@ -89,3 +89,21 @@
 .alert:empty {
   display: none;
 }
+
+.container {
+  max-width: 800px;
+  padding: 0;
+}
+
+.phx-hero {
+  height: 600px;
+  position: relative;
+}
+
+.dot {
+  background-color: #000;
+  border-radius: 50%;
+  height: 1rem;
+  position: absolute;
+  width: 1rem;
+}

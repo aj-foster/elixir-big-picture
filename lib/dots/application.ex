@@ -12,9 +12,11 @@ defmodule Dots.Application do
       # Start the PubSub system
       {Phoenix.PubSub, name: Dots.PubSub},
       # Start the Endpoint (http/https)
-      DotsWeb.Endpoint
-      # Start a worker by calling: Dots.Worker.start_link(arg)
-      # {Dots.Worker, arg}
+      DotsWeb.Endpoint,
+      # Supervisor for dot actors
+      {DynamicSupervisor, strategy: :one_for_one, name: Dots.DotSupervisor},
+      # Canvas manager
+      Dots.Canvas
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html

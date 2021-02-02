@@ -91,19 +91,27 @@
 }
 
 .container {
-  max-width: 800px;
+  max-width: 810px;
   padding: 0;
 }
 
 .phx-hero {
-  height: 600px;
+  height: 610px;
   position: relative;
+}
+
+.button-danger {
+  background-color: #a94442;
+  border-color: #a94442;
 }
 
 .dot {
   background-color: #000;
   border-radius: 50%;
   height: 1rem;
+  left: 0px;
   position: absolute;
+  top: 0px;
+  transition: left 0.2s ease-in-out, top 0.2s ease-in-out;
   width: 1rem;
 }

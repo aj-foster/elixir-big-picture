@@ -11,8 +11,13 @@ defmodule Dots.Canvas do
     {:ok, nil}
   end
 
-  def handle_info({:dot, %Dot{} = dot}, state) do
-    Phoenix.PubSub.broadcast!(Dots.PubSub, "dots", {:dot, dot})
+  def handle_info({:new, %Dot{} = dot}, state) do
+    Phoenix.PubSub.broadcast!(Dots.PubSub, "dots", {:new, dot})
+    {:noreply, state}
+  end
+
+  def handle_info({:move, %Dot{} = dot}, state) do
+    Phoenix.PubSub.broadcast!(Dots.PubSub, "dots", {:move, dot})
     {:noreply, state}
   end
 end

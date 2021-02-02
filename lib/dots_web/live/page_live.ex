@@ -6,7 +6,14 @@ defmodule DotsWeb.PageLive do
   @impl true
   def mount(_params, _session, socket) do
     Phoenix.PubSub.subscribe(Dots.PubSub, "dots")
-    {:ok, assign(socket, dots: [], reset_counter: 0)}
+
+    dots =
+      DynamicSupervisor.which_children(Dots.DotSupervisor)
+      |> Enum.map(fn {_id, pid, _type, _modules} ->
+        :sys.get_state(pid)
+      end)
+
+    {:ok, assign(socket, dots: dots, reset_counter: 0)}
   end
 
   @impl true

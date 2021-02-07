@@ -32,6 +32,9 @@ defmodule Dots.Actor do
     pid = GenServer.whereis(Dots.Canvas)
     Process.send(pid, {:move, new_dot}, [])
 
+    time = :rand.uniform(500) + 500
+    Process.send_after(self(), :move, time)
+
     {:noreply, new_dot}
   end
 end

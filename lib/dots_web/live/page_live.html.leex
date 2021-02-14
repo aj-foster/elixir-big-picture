@@ -2,6 +2,7 @@
 <button phx-click="create" phx-value-amount="100">Create 100</button>
 <button phx-click="move">Move</button>
 <button phx-click="reset" class="button-danger">Reset</button>
+<button phx-click="error" class="button-danger">Create Error</button>
 
 <section class="phx-hero" phx-update="append" id="canvas-<%= @reset_counter %>" phx-hook="Dots">
   <%= for dot <- @dots do %>

@@ -43,6 +43,13 @@ defmodule DotsWeb.PageLive do
     {:noreply, assign(socket, dots: [], reset_counter: socket.assigns[:reset_counter] + 1)}
   end
 
+  def handle_event("error", _values, socket) do
+    DynamicSupervisor.which_children(Dots.DotSupervisor)
+    |> Enum.each(fn {_id, pid, _type, _modules} -> Process.send(pid, :error, []) end)
+
+    {:noreply, assign(socket, dots: [], reset_counter: socket.assigns[:reset_counter] + 1)}
+  end
+
   @impl true
   def handle_info({:new, %Dot{} = dot}, socket) do
     {:noreply, assign(socket, dots: [dot])}

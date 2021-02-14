@@ -14,7 +14,7 @@ defmodule Dots.Application do
       # Start the Endpoint (http/https)
       DotsWeb.Endpoint,
       # Supervisor for dot actors
-      {DynamicSupervisor, strategy: :one_for_one, name: Dots.DotSupervisor},
+      {DynamicSupervisor, strategy: :one_for_one, name: Dots.DotSupervisor, max_restarts: 1_000},
       # Canvas manager
       Dots.Canvas
     ]
